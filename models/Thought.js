@@ -4,70 +4,69 @@ const dateFormat = require("../utils/dateFormat");
 
 const ReactionSchema = new Schema(
   {
-    // set custom id to avoid confusion with parent Thought _id
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
     reactionBody: {
       type: String,
-      required: 'Please enter a reaction',
+      required: "Please enter a reaction.",
       trim: true,
-      minlength: [1, 'Too few characters, please write some more'],
-      maxlength: [200, "Please don't make people read an essay..."]
+      minLength: [1, "Too few characters. Can you expand on that?"],
+      maxLength: [280, "Too many characters. Please be more concise!"],
     },
     username: {
       type: String,
-      required: 'Please enter your username'
+      required: "Please enter your username.",
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (createdAtVal) => dateFormat(createdAtVal)
+      get: (createdAtVal) => dateFormat(createdAtVal),
     },
   },
   {
-    toJson: {
-      getters: true
-    }
+    toJSON: {
+      getters: true,
+    },
   }
-)
+);
 
 const ThoughtSchema = new Schema(
   {
-  thoughtText: {
-    type: String,
-    required: "Please enter a thought",
-    time: true,
-    minlength: [1, "Too few characters, please write some more"],
-    maxlength: [200, "Please don't make people read an essay..."],
+    thoughtText: {
+      type: String,
+      required: "Please enter a thought.",
+      trim: true,
+      minLength: [1, "Too few characters. Can you expand on that?"],
+      maxLength: [280, "Too many characters. Please be more concise!"],
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) => dateFormat(createdAtVal),
+    },
+    username: {
+      type: String,
+      required: "Please enter your username.",
+    },
+    reactions: [ReactionSchema],
   },
-  username: {
-    type: String,
-    required: "Please enter your username",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (createdAtVal) => dateFormat(createdAtVal),
-  },
-  reactions: [ReactionSchema]
-},
-{
-  toSJON: {
-    virtuals: true,
-    getters: true,
-  },
-  id: false,
-}
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
 );
 
-ThoughtSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length
-})
+ThoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
 
 // Create the Thought Model using the above schema
-const Thought = model('Thought', ThoughtSchema);
+const Thought = model("Thought", ThoughtSchema);
 
 // Export the model
-module.exports = Thought
+module.exports = Thought;

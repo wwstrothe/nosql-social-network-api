@@ -16,11 +16,14 @@ router
   .put(updateThought)
   .delete(deleteThought)
 
+router 
+  .route('/:thoughtId/reactions')
+  .post(createReaction)
+
 
   // /api/thoughts/:thoughtId/reactions/:reactionId POST create reaction DELETE create reaction
   router
   .route('/:thoughtId/reactions/:reactionId')
-  .post(createReaction)
   .delete(deleteReaction)
 
 
