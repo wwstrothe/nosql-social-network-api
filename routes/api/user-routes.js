@@ -15,13 +15,10 @@ router
   .put(updateUser)
   .delete(deleteUser)
 
-// /api/users/:userId/friends POST create friend
-router
-  .route('/:userId/friends')
-  .post(createFriend)
 
-// /api/users/:userId/friends/:friendId 
+  // /api/users/:userId/friends/:friendId POST create friend, DELETE friend
   .router('/:userId/friends/:friendId')
+  .post(createFriend)
   .delete(deleteFriend)
 
 module.exports = router
