@@ -14,14 +14,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(require('./routes'));
 
 // Mongoose database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/nosql-social-network-api', {
-  useFindAndModify: false,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/nosql-social-network-api",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // Log the mongo queries being executed
 mongoose.set('debug', true);
 
 // Open a port for the server
-app.listen(PORT, () => console.log(` Connected on localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(
+    "Now listening on port %s.",
+    PORT,
+    PORT
+  )
+);
