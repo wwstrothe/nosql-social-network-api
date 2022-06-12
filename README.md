@@ -22,7 +22,7 @@
   - npm install
   
   ## [Usage](#table-of-contents)
-  Enter either of the following commands to start the 
+  Enter either of the following commands to start the application
   
   - npm start
   - npm run watch
